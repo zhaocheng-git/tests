@@ -1,0 +1,128 @@
+/* ============================================================
+   ICPC 区域银牌备战 · 附加样式（复用原站 CSS 变量，风格统一）
+   由 index.html <link rel="stylesheet" href="icpc.css"> 加载
+   ============================================================ */
+
+/* 设置区 */
+.icpc-setup { margin-bottom: 4px; }
+.icpc-setup .subtitle { margin-bottom: 8px; }
+.icpc-start-row { display: flex; gap: 10px; align-items: center; margin: 4px 0 10px; }
+.icpc-start-input {
+  flex: 1; padding: 10px 12px; border: 1px solid var(--border); border-radius: 12px;
+  font-size: 14px; background: var(--bg); color: var(--text); outline: none;
+  font-family: inherit;
+}
+.icpc-start-input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px var(--accent-soft); }
+
+.icpc-rules {
+  background: var(--accent-soft); border-radius: 12px; padding: 12px 14px; margin: 6px 0 18px;
+  font-size: 13px; line-height: 1.7;
+}
+.icpc-rules ul { margin: 6px 0 0; padding-left: 18px; }
+.icpc-rules li { margin-bottom: 3px; }
+
+/* 月度进度 */
+.icpc-progress { margin-bottom: 6px; }
+.icpc-topic-list { margin-top: 16px; text-align: left; }
+.icpc-topic-list .roadmap-table td { white-space: normal; }
+.icpc-topic-list .roadmap-table td:last-child { color: var(--muted); font-weight: 400; }
+
+/* 时间线 · 月份分组 */
+.icpc-month-head {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 700; color: var(--text);
+  padding: 11px 14px; margin: 12px 0 8px; border-radius: 12px;
+  border: 1px solid var(--border); background: var(--card); cursor: pointer; user-select: none;
+}
+.icpc-month-head:hover { background: var(--accent-soft); }
+.icpc-month-head.open { border-color: var(--accent); background: var(--accent-soft); }
+.icpc-month-core { font-weight: 400; font-size: 12px; color: var(--muted); flex: 1; }
+.icpc-month-arrow { color: var(--muted); font-size: 13px; }
+
+/* 时间线 · 单日卡片 */
+.icpc-day {
+  border: 1px solid var(--border); border-radius: 14px;
+  padding: 10px 14px; margin-bottom: 10px; background: var(--card);
+}
+.icpc-day.icpc-today {
+  border-color: var(--accent); background: var(--accent-soft);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.icpc-day-head { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+.icpc-date { font-size: 14px; font-weight: 700; color: var(--text); }
+.icpc-badge { font-size: 11px; font-weight: 600; color: #fff; background: var(--accent); padding: 2px 9px; border-radius: 999px; }
+.icpc-day-count { margin-left: auto; font-size: 12px; font-weight: 600; color: var(--muted); }
+.icpc-arrow { color: var(--muted); font-size: 12px; }
+.icpc-day:not(.icpc-open) .icpc-day-head { margin-bottom: 0; }
+.icpc-day-body { display: flex; flex-direction: column; gap: 3px; margin-top: 8px; }
+
+/* 单题行 */
+.icpc-task {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 8px; border-radius: 10px;
+}
+.icpc-task:hover { background: rgba(0, 0, 0, 0.035); }
+.icpc-task input[type="checkbox"] {
+  width: 17px; height: 17px; flex-shrink: 0; cursor: pointer; accent-color: var(--accent);
+}
+.icpc-tag {
+  font-size: 10.5px; font-weight: 600; padding: 1px 7px; border-radius: 999px;
+  flex-shrink: 0; white-space: nowrap; line-height: 1.5;
+}
+.icpc-tag-a { color: #b25000; background: var(--amber-soft); }
+.icpc-tag-b { color: #0071e3; background: var(--accent-soft); }
+.icpc-tag-c { color: #248a3d; background: var(--green-soft); }
+.icpc-tag-d { color: #5856d6; background: #efecff; }
+
+.icpc-name { font-size: 13.5px; flex: 1; line-height: 1.45; word-break: break-all; }
+.icpc-task.done .icpc-name { color: var(--muted); text-decoration: line-through; }
+
+.icpc-time {
+  width: 62px; font-size: 12px; padding: 4px 6px; text-align: center;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text);
+  outline: none; flex-shrink: 0;
+}
+.icpc-time:focus { border-color: var(--accent); background: #fff; }
+
+.icpc-wrong-btn, .icpc-del-btn {
+  border: none; background: none; cursor: pointer; font-size: 15px; line-height: 1;
+  padding: 2px 4px; flex-shrink: 0; opacity: 0.45; transition: opacity 0.15s ease;
+}
+.icpc-wrong-btn:hover, .icpc-del-btn:hover { opacity: 1; }
+.icpc-wrong-btn.on { opacity: 1; }
+.icpc-del-btn { color: var(--red); }
+
+/* 添加题目 */
+.icpc-add-row { display: flex; gap: 8px; margin-top: 5px; }
+.icpc-add-input {
+  flex: 1; padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px;
+  font-size: 13px; background: var(--bg); outline: none; font-family: inherit; color: var(--text);
+}
+.icpc-add-input:focus { border-color: var(--accent); background: #fff; }
+.icpc-add-btn {
+  padding: 8px 14px; border: none; border-radius: 10px; background: var(--accent);
+  color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;
+  transition: all 0.2s ease; flex-shrink: 0;
+}
+.icpc-add-btn:hover { background: #0077ed; transform: translateY(-1px); }
+
+/* 错题本 */
+.icpc-wrong { margin-top: 4px; }
+.icpc-wrong-list { display: flex; flex-direction: column; gap: 10px; }
+.icpc-wrong-item {
+  border-left: 3px solid var(--red); padding: 10px 12px;
+  background: var(--red-soft); border-radius: 0 12px 12px 0;
+}
+.icpc-wrong-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.icpc-wrong-meta { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.icpc-wrong-note {
+  width: 100%; margin-top: 8px; padding: 8px 10px; border: 1px solid var(--border);
+  border-radius: 10px; font-size: 13px; background: #fff; outline: none; font-family: inherit; color: var(--text);
+}
+.icpc-wrong-note:focus { border-color: var(--accent); }
+.icpc-unmark { margin-top: 8px; background: var(--muted); }
+.icpc-unmark:hover { background: var(--text); }
+
+/* 路线图嵌套卡片去边框（嵌在大卡内） */
+.icpc-card .roadmap { background: transparent; }
+.icpc-card .roadmap-summary { margin-top: 4px; }
