@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>全年学习计划 · 2026.9 – 2027.8</title>
   <link rel="stylesheet" href="style.css?v=12" />
+  <!-- ===== 新增：ICPC 模块样式（不改动原 style.css） ===== -->
+  <link rel="stylesheet" href="icpc.css?v=1" />
 </head>
 <body>
   <main class="app">
@@ -121,6 +123,9 @@
     <!-- 健身专区 -->
     <div id="fitness-wrap"></div>
 
+    <!-- ===== 新增：ICPC 区域银牌备战模块（由 icpc.js 渲染，独立 LocalStorage，不影响原有模块） ===== -->
+    <div id="icpc-wrap"></div>
+
     <!-- 版本 / 更新日志 -->
     <div id="version-wrap"></div>
   </main>
@@ -128,5 +133,7 @@
   <script src="https://js.puter.com/v2/"></script>
   <script src="plan-data.js?v=14"></script>
   <script src="app.js?v=14"></script>
+  <!-- ===== 新增：ICPC 模块脚本（独立逻辑，不动 app.js） ===== -->
+  <script src="icpc.js?v=1"></script>
 </body>
 </html>
