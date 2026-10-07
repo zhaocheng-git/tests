@@ -142,3 +142,25 @@
 /* 路线图嵌套卡片去边框（嵌在大卡内） */
 .icpc-card .roadmap { background: transparent; }
 .icpc-card .roadmap-summary { margin-top: 4px; }
+
+/* 模拟赛 + 对拍 */
+.icpc-duel {
+  background: var(--accent-soft); border-radius: 12px; padding: 12px 14px;
+  margin-bottom: 12px; font-size: 13px; line-height: 1.7;
+}
+.icpc-duel ol { margin: 6px 0 6px 18px; }
+.icpc-duel span { font-size: 12px; color: var(--muted); }
+.icpc-contest-week {
+  background: var(--amber-soft); border-radius: 12px; padding: 11px 14px;
+  margin-bottom: 12px; font-size: 13px; line-height: 1.7;
+}
+.icpc-contest-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.icpc-contest-item {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  border: 1px solid var(--border); border-radius: 10px; padding: 9px 11px; background: var(--bg); font-size: 13px;
+}
+.icpc-contest-item b { flex-shrink: 0; }
+.icpc-contest-meta { font-size: 12px; color: var(--muted); flex-shrink: 0; }
+.icpc-contest-note { font-size: 12px; color: var(--muted); flex: 1; min-width: 120px; }
+.icpc-contest-item .icpc-del-btn { opacity: 0.45; }
+.icpc-contest-item:hover .icpc-del-btn { opacity: 1; }

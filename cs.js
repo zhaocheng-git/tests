@@ -148,6 +148,18 @@ const CS_RES = {
   "parallel-6": "Pacheco 第2章 · CSAPP 12.5-12.7",
 };
 
+// ---------- 论文阅读清单（分布式方向，按难度递增，配合 6.824） ----------
+const CS_PAPERS = [
+  { title: "MapReduce", year: 2004, conf: "OSDI", phase: "6.824 Lab1 必读", diff: "易" },
+  { title: "The Google File System (GFS)", year: 2003, conf: "SOSP", phase: "6.824 早期必读", diff: "易" },
+  { title: "Raft（In Search of an Understandable Consensus Algorithm）", year: 2014, conf: "ATC", phase: "6.824 Lab2 必读", diff: "中" },
+  { title: "The Part-Time Parliament (Paxos)", year: 1998, conf: "TOCS", phase: "进阶选读", diff: "难" },
+  { title: "Bigtable", year: 2006, conf: "OSDI", phase: "进阶", diff: "中" },
+  { title: "Dynamo", year: 2007, conf: "SOSP", phase: "进阶", diff: "中" },
+  { title: "Spanner", year: 2012, conf: "OSDI", phase: "高阶", diff: "难" },
+  { title: "李钦宾组最新论文（AI for Systems / 分布式存储）", year: "", conf: "OSDI/SOSP/FAST", phase: "去他主页 / Google Scholar 看", diff: "" },
+];
+
 // ---------- 状态（独立 LocalStorage key） ----------
 const CS_KEY = "cs-v1-state";
 
@@ -251,6 +263,7 @@ function renderCs() {
   card.appendChild(csBuildTabs());
   card.appendChild(csBuildCourse(csCurrent));
   card.appendChild(csBuildStages());
+  card.appendChild(csBuildPapers());
 
   wrap.appendChild(card);
 }
@@ -702,6 +715,35 @@ function csBuildStages() {
   table.appendChild(tbody);
   tableWrap.appendChild(table);
   wrap.appendChild(tableWrap);
+  return wrap;
+}
+
+// 论文阅读清单
+function csBuildPapers() {
+  const wrap = document.createElement("div");
+  wrap.className = "cs-section";
+  const head = document.createElement("div");
+  head.className = "cs-section-title";
+  head.textContent = "📄 论文阅读清单（分布式方向 · 按难度递增，配合 6.824 进度）";
+  wrap.appendChild(head);
+  const tblWrap = document.createElement("div");
+  tblWrap.className = "table-wrap";
+  const table = document.createElement("table");
+  table.className = "roadmap-table";
+  table.innerHTML = "<thead><tr><th>论文</th><th>会议 / 年份</th><th>对应阶段</th><th>难度</th></tr></thead>";
+  const tbody = document.createElement("tbody");
+  CS_PAPERS.forEach(function (p) {
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      "<td><b>" + p.title + "</b></td>" +
+      "<td>" + p.conf + " " + p.year + "</td>" +
+      "<td>" + p.phase + "</td>" +
+      "<td>" + (p.diff || "") + "</td>";
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  tblWrap.appendChild(table);
+  wrap.appendChild(tblWrap);
   return wrap;
 }
 

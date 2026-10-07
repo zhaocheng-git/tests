@@ -184,7 +184,7 @@ const ICPC_PLAN = [
 const ICPC_KEY = "icpc-v1-state";
 
 function icpcDefaultState() {
-  return { start: null, task: {}, custom: {}, deleted: {}, checkin: {} };
+  return { start: null, task: {}, custom: {}, deleted: {}, checkin: {}, contest: [] };
 }
 
 let icpcState = icpcLoad();
@@ -373,6 +373,7 @@ function renderIcpc() {
   card.appendChild(icpcBuildCalendar());
   card.appendChild(icpcBuildTimeline());
   card.appendChild(icpcBuildWrong());
+  card.appendChild(icpcBuildContest());
   card.appendChild(icpcBuildRoadmap());
 
   wrap.appendChild(card);
@@ -828,6 +829,102 @@ function icpcBuildWrong() {
     list.appendChild(item);
   });
   wrap.appendChild(list);
+
+  return wrap;
+}
+
+// 每周模拟赛 + 对拍训练
+function icpcBuildContest() {
+  const wrap = document.createElement("div");
+  wrap.className = "icpc-contest";
+
+  const head = document.createElement("h3");
+  head.className = "sub-title";
+  head.textContent = "🎯 每周模拟赛 + 对拍训练";
+  wrap.appendChild(head);
+
+  // 对拍方法
+  const duel = document.createElement("div");
+  duel.className = "icpc-duel";
+  duel.innerHTML =
+    "<b>⚙️ 对拍训练（写完题一定要对拍，银牌必备习惯）</b>" +
+    "<ol><li>写暴力程序 brute（保证正确但慢）</li>" +
+    "<li>写正解 sol（要验证的程序）</li>" +
+    "<li>写数据生成器 gen（随机造小数据）</li>" +
+    "<li>循环 gen → brute → sol，输出不一致就 debug</li></ol>" +
+    "<span>时机：模板题 / 有把握但可能出 bug 的题 / 交题前。工具：Windows 用 .bat 循环、Linux 用 bash，或直接用洛谷 / CF 评测。</span>";
+  wrap.appendChild(duel);
+
+  // 本周模拟赛提醒
+  const s = icpcStartDate();
+  if (s) {
+    const sun = icpcAddDays(icpcToday(), (7 - icpcToday().getDay()) % 7);
+    const week = document.createElement("div");
+    week.className = "icpc-contest-week";
+    week.innerHTML = "<b>📅 本周模拟赛</b>：周日 " + (sun.getMonth() + 1) + " 月 " + sun.getDate() +
+      " 日，做一场 5 小时计时赛（Codeforces div2 / AtCoder ABC / 洛谷套题），严格计时，赛后复盘每道没做出来的题。";
+    wrap.appendChild(week);
+  }
+
+  // 模拟赛记录
+  const recHead = document.createElement("div");
+  recHead.className = "note-label";
+  recHead.textContent = "📊 模拟赛记录（每场赛完记一笔，见证进步）";
+  wrap.appendChild(recHead);
+
+  const list = document.createElement("div");
+  list.className = "icpc-contest-list";
+  const arr = icpcState.contest || [];
+  if (!arr.length) {
+    list.innerHTML = '<p class="dailyplan-hint">还没有模拟赛记录，打完第一场就来记一笔吧。</p>';
+  } else {
+    arr.slice().reverse().forEach(function (c) {
+      const item = document.createElement("div");
+      item.className = "icpc-contest-item";
+      item.innerHTML =
+        '<span class="icpc-contest-meta">' + (c.date || "") + '</span>' +
+        '<b>' + (c.name || "模拟赛") + '</b>' +
+        '<span>过 ' + (c.solved || "0") + ' 题</span>' +
+        (c.note ? '<span class="icpc-contest-note">📝 ' + c.note + '</span>' : '') +
+        '<button class="icpc-del-btn" data-cid="' + c.id + '" title="删除">✕</button>';
+      list.appendChild(item);
+    });
+    list.querySelectorAll(".icpc-del-btn").forEach(function (b) {
+      b.addEventListener("click", function () {
+        icpcState.contest = icpcState.contest.filter(function (x) { return x.id !== Number(b.dataset.cid); });
+        icpcSave();
+        renderIcpc();
+      });
+    });
+  }
+  wrap.appendChild(list);
+
+  // 添加记录
+  const add = document.createElement("div");
+  add.className = "icpc-add-row";
+  const nameInput = document.createElement("input");
+  nameInput.className = "icpc-add-input";
+  nameInput.placeholder = "比赛名（如 CF Round 900）";
+  const solvedInput = document.createElement("input");
+  solvedInput.className = "icpc-add-input";
+  solvedInput.style.width = "70px";
+  solvedInput.placeholder = "过题数";
+  const noteInput = document.createElement("input");
+  noteInput.className = "icpc-add-input";
+  noteInput.placeholder = "复盘（可选）";
+  const addBtn = document.createElement("button");
+  addBtn.className = "icpc-add-btn";
+  addBtn.textContent = "记录";
+  addBtn.addEventListener("click", function () {
+    const name = nameInput.value.trim();
+    const solved = solvedInput.value.trim();
+    if (!name && !solved) return;
+    icpcState.contest.push({ id: Date.now(), date: icpcKey(icpcToday()), name: name, solved: solved, note: noteInput.value.trim() });
+    icpcSave();
+    renderIcpc();
+  });
+  add.append(nameInput, solvedInput, noteInput, addBtn);
+  wrap.appendChild(add);
 
   return wrap;
 }
