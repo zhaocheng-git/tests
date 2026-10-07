@@ -1,0 +1,81 @@
+/* ============================================================
+   计算机基础专业课 · 并行学习规划（附加样式）
+   复用原站 CSS 变量，风格统一
+   由 index.html <link rel="stylesheet" href="cs.css"> 加载
+   4 个子栏目：操作系统 / 计算机网络 / 分布式系统 / 并行计算
+   ============================================================ */
+
+/* 子栏目 Tab 导航 */
+.cs-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.cs-tab {
+  flex: 1; min-width: 88px; padding: 9px 10px; border: 1px solid var(--border);
+  border-radius: 12px; background: var(--card); cursor: pointer; font-size: 13px;
+  font-weight: 600; color: var(--muted); text-align: center; transition: all 0.18s ease;
+}
+.cs-tab:hover { border-color: var(--muted); }
+.cs-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* 课程定位条 */
+.cs-goal {
+  background: var(--accent-soft); border-radius: 12px; padding: 12px 14px;
+  margin-bottom: 16px; font-size: 13px; line-height: 1.7;
+}
+.cs-goal b { color: var(--text); }
+.cs-pos {
+  display: inline-block; font-size: 11px; font-weight: 700; color: #fff;
+  background: var(--accent); padding: 2px 9px; border-radius: 999px; margin-bottom: 6px;
+}
+
+/* 章节标题 */
+.cs-section { margin-bottom: 16px; }
+.cs-section-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+
+/* 标签（必学/选学 · 考研重点/面试加分） */
+.cs-tag { font-size: 10.5px; font-weight: 600; padding: 1px 7px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+.cs-tag-req { color: #0071e3; background: var(--accent-soft); }
+.cs-tag-opt { color: var(--muted); background: var(--bg); }
+.cs-tag-ky { color: #d70015; background: var(--red-soft); }
+.cs-tag-iv { color: #5856d6; background: #efecff; }
+
+/* 书目 */
+.cs-book {
+  display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+  border: 1px solid var(--border); border-radius: 10px; margin-bottom: 6px;
+  background: var(--bg); font-size: 13px;
+}
+.cs-book-name { flex: 1; line-height: 1.5; }
+.cs-book-note { font-size: 11.5px; color: var(--muted); }
+
+/* 每周任务（可打卡） */
+.cs-week-item {
+  display: flex; align-items: center; gap: 8px; padding: 9px 10px;
+  border: 1px solid var(--border); border-radius: 10px; margin-bottom: 6px;
+  background: var(--card); cursor: pointer; transition: all 0.15s ease;
+}
+.cs-week-item:hover { border-color: var(--accent); }
+.cs-week-item input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+.cs-w-body { flex: 1; min-width: 0; }
+.cs-w-name { font-size: 13.5px; font-weight: 600; line-height: 1.45; }
+.cs-week-item.done .cs-w-name { color: var(--muted); text-decoration: line-through; }
+.cs-w-desc { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+.cs-w-date { font-size: 11px; color: var(--green); font-weight: 600; flex-shrink: 0; }
+
+/* 验收标准 / 配套项目 */
+.cs-check {
+  border-left: 3px solid var(--green); padding: 11px 13px;
+  background: var(--green-soft); border-radius: 0 12px 12px 0; font-size: 13px; line-height: 1.7;
+}
+.cs-project {
+  border-left: 3px solid var(--amber); padding: 11px 13px;
+  background: var(--amber-soft); border-radius: 0 12px 12px 0; font-size: 13px; line-height: 1.7;
+}
+
+/* 进度小结 */
+.cs-course-progress {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 13px; color: var(--muted);
+}
+.cs-course-progress b { color: var(--text); }
+
+/* 路线图嵌套卡片去边框（嵌在大卡内） */
+.cs-card .roadmap { background: transparent; }
+.cs-card .roadmap-summary { margin-top: 4px; }

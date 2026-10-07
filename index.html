@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="style.css?v=12" />
   <!-- ===== 新增：ICPC 模块样式（不改动原 style.css） ===== -->
   <link rel="stylesheet" href="icpc.css?v=1" />
+  <!-- ===== 新增：计算机基础专业课样式（不改动原 style.css） ===== -->
+  <link rel="stylesheet" href="cs.css?v=1" />
 </head>
 <body>
   <main class="app">
@@ -126,6 +128,9 @@
     <!-- ===== 新增：ICPC 区域银牌备战模块（由 icpc.js 渲染，独立 LocalStorage，不影响原有模块） ===== -->
     <div id="icpc-wrap"></div>
 
+    <!-- ===== 新增：计算机基础专业课（由 cs.js 渲染，独立 LocalStorage，不影响原有模块） ===== -->
+    <div id="cs-wrap"></div>
+
     <!-- 版本 / 更新日志 -->
     <div id="version-wrap"></div>
   </main>
@@ -135,5 +140,7 @@
   <script src="app.js?v=14"></script>
   <!-- ===== 新增：ICPC 模块脚本（独立逻辑，不动 app.js） ===== -->
   <script src="icpc.js?v=1"></script>
+  <!-- ===== 新增：计算机基础专业课脚本（独立逻辑，不动 app.js） ===== -->
+  <script src="cs.js?v=1"></script>
 </body>
 </html>
