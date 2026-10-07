@@ -27,6 +27,22 @@
 .icpc-topic-list .roadmap-table td { white-space: normal; }
 .icpc-topic-list .roadmap-table td:last-child { color: var(--muted); font-weight: 400; }
 
+/* 专题卡片（3 档题 + 验收 + 易错点） */
+.icpc-topic {
+  border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px;
+  margin-bottom: 10px; background: var(--bg);
+}
+.icpc-topic-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.icpc-topic-row { font-size: 12.5px; color: var(--text); line-height: 1.6; margin: 3px 0; }
+.icpc-topic-check {
+  margin-top: 8px; padding: 7px 10px; font-size: 12px; line-height: 1.6;
+  border-left: 3px solid var(--green); background: var(--green-soft); border-radius: 0 8px 8px 0;
+}
+.icpc-topic-pit {
+  margin-top: 6px; padding: 7px 10px; font-size: 12px; line-height: 1.6;
+  border-left: 3px solid var(--amber); background: var(--amber-soft); border-radius: 0 8px 8px 0;
+}
+
 /* 时间线 · 月份分组 */
 .icpc-month-head {
   display: flex; align-items: center; gap: 8px;

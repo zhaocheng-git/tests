@@ -16,134 +16,169 @@ const ICPC_ZHENTI = [
   "2021CCPC 珠海 G", "2022CCPC 哈尔滨 I",
 ];
 
+// ============================================================
+// 螺旋式刷题训练清单（3 阶段 · 优先练熟旧算法，再学新算法）
+// 每个专题分 3 档：p1 入门巩固 / p2 中档 / p3 综合
+// check = 验收标准，pitfalls = 易错点/训练提醒；后期月份穿插复习旧专题
+// ============================================================
 const ICPC_PLAN = [
+  // ================= 阶段 1：巩固旧知识点（月 1-5） =================
   {
-    mo: 1, title: "查漏补缺阶段",
-    core: "STL 进阶 / 二分·前缀差分进阶 / 贪心进阶",
-    daily: "1 道坑题 + 1 道变形题 + 1 道真题",
-    goal: "基础模块坑点全部踩完，养成稳定每日 3 题习惯",
-    types: ["坑题", "变形题", "真题"],
+    mo: 1, stage: 1, title: "算数基础 + 线性基",
+    core: "gcd / exgcd / 素数筛 / 逆元 / 快速幂 + 线性基模板",
+    daily: "入门巩固 + 中档 + 综合 各 1 题",
+    goal: "数论基础模板一次写对，代码无 bug",
+    types: ["入门巩固", "中档", "综合"],
     topics: [
-      { name: "STL 进阶坑点", problems: ["洛谷 P1908 逆序对", "QOJ10052", "2021CCPC 哈尔滨 B"] },
-      { name: "二分 & 前缀差分进阶", problems: ["洛谷 P1873 砍树", "洛谷 P2219 修筑绿地", "2022ICPC 杭州 A"] },
-      { name: "贪心进阶", problems: ["洛谷 P1040 加分二叉树", "洛谷 P2672 推销员", "2023CCPC 威海 E"] },
+      { name: "算数 / 数论基础", p1: ["洛谷 P3383 线性筛素数（入门）", "洛谷 P1226 快速幂（入门）"], p2: ["洛谷 P1082 同余方程（普及）", "洛谷 P3811 乘法逆元（普及）"], p3: ["洛谷 P1495 中国剩余定理（提高）", "洛谷 P2158 仪仗队（提高）"],
+        check: "10 分钟内默写 gcd/exgcd/逆元/筛法模板，一次编译通过", pitfalls: "exgcd 回代 x/y 符号易错；费马小定理仅模质数；快速幂注意取模边界" },
+      { name: "线性基", p1: ["洛谷 P3812 线性基（普及）"], p2: ["洛谷 P4570 [BJWC2011] 元素（提高）"], p3: ["HDU 3949 XOR（省选）"],
+        check: "能手写线性基插入 / 异或最大值，理解线性无关", pitfalls: "插入从高位到低位贪心；第 k 小需先重构基" },
     ],
   },
   {
-    mo: 2, title: "DP & 搜索进阶",
-    core: "多维 DP / 滚动数组 / 计数 DP / 记忆化搜索 / 双向 BFS / 剪枝",
-    daily: "1 道坑题 + 1 道变形题 + 1 道真题",
-    goal: "复杂 DP 状态设计、搜索剪枝能力",
-    types: ["坑题", "变形题", "真题"],
+    mo: 2, stage: 1, title: "贪心 + 二分",
+    core: "经典贪心模型 + 二分查找 / 二分答案",
+    daily: "入门巩固 + 中档 + 综合 各 1 题",
+    goal: "贪心策略一眼判断，二分边界一次写对",
+    types: ["入门巩固", "中档", "综合"],
     topics: [
-      { name: "DP 进阶", problems: ["洛谷 P1757 分组背包", "洛谷 P1880 石子合并", "2022ICPC 南京 D"] },
-      { name: "搜索进阶", problems: ["洛谷 P1120 小木棍", "洛谷 P1443 马的遍历", "2021ICPC 上海 G"] },
+      { name: "贪心", p1: ["洛谷 P1223 排队接水（入门）", "洛谷 P1803 凌乱的yyy（入门）"], p2: ["洛谷 P1090 合并果子（普及）", "洛谷 P2240 部分背包（普及）"], p3: ["洛谷 P1080 国王游戏（提高）"],
+        check: "能说明贪心为何最优，区间调度/哈夫曼/交换论证熟练", pitfalls: "贪心要先证明再写码；排序比较器写反；忘开 long long" },
+      { name: "二分", p1: ["洛谷 P2249 查找（入门）", "洛谷 P1873 砍树（入门）"], p2: ["洛谷 P2678 跳石头（普及）", "洛谷 P2440 木材加工（普及）"], p3: ["洛谷 P1314 聪明的质检员（提高）"],
+        check: "二分左右边界、check 函数一次写对", pitfalls: "二分边界 left/right 取错导致死循环；答案上界下界判断" },
     ],
   },
   {
-    mo: 3, title: "进阶图论",
-    core: "带权/扩展域并查集 / 01BFS / 最短路计数 / MST 模型拓展",
-    daily: "1 道坑题 + 1 道变形题 + 1 道真题",
-    goal: "熟练处理图论各类变形模型",
-    types: ["坑题", "变形题", "真题"],
+    mo: 3, stage: 1, title: "前缀和 + 差分",
+    core: "一维/二维前缀和 + 一维/二维差分",
+    daily: "入门巩固 + 中档 + 综合 各 1 题",
+    goal: "前缀和/差分一眼看出，公式不背错",
+    types: ["入门巩固", "中档", "综合"],
     topics: [
-      { name: "并查集进阶", problems: ["洛谷 P1525 关押罪犯", "洛谷 P2024 食物链", "2020CCPC 长春 D"] },
-      { name: "图论进阶", problems: ["洛谷 P1629 邮递员送信", "洛谷 P4782", "2023ICPC 济南 D"] },
+      { name: "前缀和", p1: ["洛谷 P1115 最大子段和（入门）", "洛谷 P1719 最大加权矩形（普及）"], p2: ["洛谷 P2280 激光炸弹（普及）", "洛谷 P2004 领地选择（普及）"], p3: ["洛谷 P1387 最大正方形（普及）"],
+        check: "一维/二维前缀和公式默写无误", pitfalls: "二维前缀和容斥加减符号易错；下标从 1 开始避免越界" },
+      { name: "差分", p1: ["洛谷 P2367 语文成绩（入门）", "洛谷 P3397 地毯（普及）"], p2: ["洛谷 P1083 借教室（提高）"], p3: ["洛谷 P4552 差分应用（提高）"],
+        check: "差分区间加减、二维差分一次写对", pitfalls: "差分数组要原数组长度+1；配合二分时 check 复杂" },
     ],
   },
   {
-    mo: 4, title: "进阶数论 + 计算几何查漏",
-    core: "欧拉函数 / 同余 / 逆元 / CRT / 莫比乌斯基础；浮点 eps / 向量叉积 / 线段相交",
-    daily: "1 道坑题 + 1 道变形题 + 1 道真题",
-    goal: "搞定数论模板、几何浮点精度坑",
-    types: ["坑题", "变形题", "真题"],
+    mo: 4, stage: 1, title: "简单 DP + BFS/DFS",
+    core: "线性 DP / 背包 / LIS + BFS 最短路 / DFS 回溯剪枝",
+    daily: "入门巩固 + 中档 + 综合 各 1 题",
+    goal: "DP 状态设计清晰，搜索模板无 bug",
+    types: ["入门巩固", "中档", "综合"],
     topics: [
-      { name: "数论进阶", problems: ["洛谷 P2613 有理数取余", "洛谷 P2158 仪仗队", "2022CCPC 绵阳 B"] },
-      { name: "计算几何进阶", problems: ["洛谷 P1357", "洛谷 P2424", "2021ICPC 沈阳 F"] },
+      { name: "简单 DP", p1: ["洛谷 P1216 数字三角形（入门）", "洛谷 P1048 采药（普及）"], p2: ["洛谷 P1616 完全背包（普及）", "洛谷 P1020 导弹拦截（普及）"], p3: ["洛谷 P1439 最长公共子序列（提高）"],
+        check: "01/完全背包、LIS/LCS 一次写对", pitfalls: "背包体积/价值维度搞反；LIS 需 nlogn 用 lower_bound" },
+      { name: "BFS / DFS", p1: ["洛谷 P1443 马的遍历（普及）", "洛谷 P1605 迷宫（入门）"], p2: ["洛谷 P1135 奇怪的电梯（普及）", "洛谷 P1332 血色先锋队（普及）"], p3: ["洛谷 P1126 机器人搬重物（提高）"],
+        check: "BFS 层序、DFS 回溯剪枝模板无 bug", pitfalls: "BFS 忘标记 visited 导致死循环；DFS 回溯状态没恢复" },
     ],
   },
   {
-    mo: 5, title: "银牌新算法 Ⅰ：线段树 & 树状数组",
-    core: "树状数组 / 线段树（区间修改、懒标记、离线扫描线）",
-    daily: "1 道模板入门题 + 1 道中档变形题 + 1 道区域真题",
-    goal: "熟练线段树各类经典模型",
-    types: ["模板入门", "中档变形", "区域真题"],
+    mo: 5, stage: 1, title: "最短路 + 单调队列/栈",
+    core: "Dijkstra / SPFA / Floyd + 单调队列 / 单调栈（阶段2 前哨）",
+    daily: "入门巩固 + 中档 + 综合 各 1 题",
+    goal: "最短路三种算法熟练，单调栈单调队列入门",
+    types: ["入门巩固", "中档", "综合"],
     topics: [
-      { name: "线段树 / 树状数组", problems: ["洛谷 P3372 线段树 1", "洛谷 P3373 线段树 2", "2023CCPC 广州 C"] },
+      { name: "最短路", p1: ["洛谷 P3371 单源最短路（普及）", "洛谷 P4779 Dijkstra堆优化（普及）"], p2: ["洛谷 P1629 邮递员送信（普及）", "洛谷 P3385 负环（提高）"], p3: ["洛谷 P1144 最短路计数（普及）"],
+        check: "Dijkstra 堆优化 / SPFA 判负环 一次写对", pitfalls: "Dijkstra 不能处理负权；SPFA 判负环入队次数；初始化 dis=INF" },
+      { name: "单调队列 / 单调栈", p1: ["洛谷 P1886 滑动窗口（普及）", "洛谷 P5788 单调栈（普及）"], p2: ["洛谷 P1440 求m区间最小值（普及）"], p3: ["洛谷 P2866 Bad Hair Day（普及）"],
+        check: "能讲清单调队列/栈维护什么单调性", pitfalls: "队列存下标而非值；弹栈条件写错；哨兵处理" },
+    ],
+  },
+
+  // ================= 阶段 2：进阶银牌算法（月 6-9） =================
+  {
+    mo: 6, stage: 2, title: "线段树 + 树状数组",
+    core: "线段树（区间修改/懒标记）+ 树状数组（单点/区间）",
+    daily: "入门巩固 + 中档 + 综合 各 1 题",
+    goal: "线段树/树状数组模板一次写对，懒标记不丢",
+    types: ["入门巩固", "中档", "综合"],
+    topics: [
+      { name: "线段树", p1: ["洛谷 P3372 线段树1（普及）", "洛谷 P3373 线段树2（提高）"], p2: ["洛谷 P4588 数学计算（提高）"], p3: ["洛谷 P5490 扫描线（提高）"],
+        check: "线段树区间加乘、懒标记 pushdown 一次写对", pitfalls: "pushdown 忘清标记；区间合并顺序；开 4 倍空间" },
+      { name: "树状数组", p1: ["洛谷 P3374 树状数组1（入门）", "洛谷 P3368 树状数组2（普及）"], p2: ["洛谷 P1908 逆序对（普及）"], p3: ["洛谷 P3431 二维偏序（提高）"],
+        check: "lowbit、单点/区间更新查询模板无 bug", pitfalls: "lowbit 用 i&(-i)；树状数组下标不能为 0" },
+      { name: "复习 · 贪心/二分", p1: ["洛谷 P1223 排队接水"], p2: ["洛谷 P2678 跳石头"], p3: ["洛谷 P1080 国王游戏"], check: "旧专题保持手感", pitfalls: "" },
     ],
   },
   {
-    mo: 6, title: "银牌新算法 Ⅱ：树上算法",
-    core: "倍增 LCA / 树上 DP / 树的重心 / 树上路径问题",
-    daily: "1 道模板入门题 + 1 道中档变形题 + 1 道区域真题",
-    goal: "树上问题解题框架",
-    types: ["模板入门", "中档变形", "区域真题"],
+    mo: 7, stage: 2, title: "并查集进阶 + DP 优化",
+    core: "带权/种类并查集 + 区间 DP / 单调队列优化 DP",
+    daily: "入门巩固 + 中档 + 综合 各 1 题",
+    goal: "并查集维护关系熟练，DP 优化方向清晰",
+    types: ["入门巩固", "中档", "综合"],
     topics: [
-      { name: "树上算法", problems: ["洛谷 P3379 LCA", "洛谷 P1352 没有上司的舞会", "2022ICPC 沈阳 D"] },
+      { name: "并查集进阶", p1: ["洛谷 P3367 并查集（入门）"], p2: ["洛谷 P1525 关押罪犯（普及）", "洛谷 P2024 食物链（普及）"], p3: ["洛谷 P1197 星球大战（提高）"],
+        check: "带权/种类并查集 find/union 一次写对", pitfalls: "路径压缩与合并顺序；种类并查集开 3 倍空间" },
+      { name: "DP 优化", p1: ["洛谷 P1757 分组背包（普及）"], p2: ["洛谷 P1880 石子合并（普及）", "洛谷 P3572 Little Bird（提高）"], p3: ["洛谷 P3195 玩具装箱（提高）"],
+        check: "区间 DP 转移、单调队列优化 DP 能独立写", pitfalls: "区间 DP 枚举顺序；优化 DP 去无用状态" },
+      { name: "复习 · 前缀和/差分", p1: ["洛谷 P1115 最大子段和"], p2: ["洛谷 P1083 借教室"], p3: ["洛谷 P2280 激光炸弹"], check: "旧专题保持手感", pitfalls: "" },
     ],
   },
   {
-    mo: 7, title: "银牌新算法 Ⅲ：字符串算法",
-    core: "KMP / 字符串哈希 / Trie 字典树 / 哈希冲突处理",
-    daily: "1 道模板入门题 + 1 道中档变形题 + 1 道区域真题",
-    goal: "字符串基础套路全部掌握",
-    types: ["模板入门", "中档变形", "区域真题"],
+    mo: 8, stage: 2, title: "最小生成树进阶 + 网络流入门",
+    core: "Kruskal/Prim + 次小生成树 + Dinic 最大流 / 二分图匹配",
+    daily: "入门巩固 + 中档 + 综合 各 1 题",
+    goal: "MST 变形熟练，网络流基础建图",
+    types: ["入门巩固", "中档", "综合"],
     topics: [
-      { name: "字符串算法", problems: ["洛谷 P3375 KMP", "洛谷 P1481 魔王语言", "2023ICPC 武汉 F"] },
+      { name: "最小生成树进阶", p1: ["洛谷 P3366 最小生成树（普及）"], p2: ["洛谷 P1547 Out of Hay（普及）", "洛谷 P1991 无线通讯网（普及）"], p3: ["洛谷 P4180 次小生成树（提高）"],
+        check: "Kruskal 一次写对，理解次小生成树", pitfalls: "并查集初始化；Kruskal 按边权排序；次小生成树替换边" },
+      { name: "网络流入门", p1: ["洛谷 P3376 网络最大流（提高）"], p2: ["洛谷 P3386 二分图最大匹配（普及）"], p3: ["洛谷 P3381 最小费用最大流（提高）"],
+        check: "Dinic 模板一次写对，能建基础二分图/最大流模型", pitfalls: "反向边容量；建图方向；Dinic 当前弧优化" },
+      { name: "复习 · 最短路", p1: ["洛谷 P4779 Dijkstra"], p2: ["洛谷 P1629 邮递员送信"], p3: ["洛谷 P1144 最短路计数"], check: "旧专题保持手感", pitfalls: "" },
     ],
   },
   {
-    mo: 8, title: "银牌新算法 Ⅳ：单调队列、单调栈",
-    core: "滑动窗口 / 区间极值 / 单调栈维护单调性",
-    daily: "1 道模板入门题 + 1 道中档变形题 + 1 道区域真题",
-    goal: "熟练单调性优化类题目",
-    types: ["模板入门", "中档变形", "区域真题"],
+    mo: 9, stage: 2, title: "字符串基础（KMP）+ 综合复习",
+    core: "KMP 前缀函数 + 字符串哈希 + 阶段1/2 螺旋复习",
+    daily: "入门巩固 + 中档 + 综合 各 1 题",
+    goal: "KMP 一次写对，阶段1/2 知识点不遗忘",
+    types: ["入门巩固", "中档", "综合"],
     topics: [
-      { name: "单调队列 / 单调栈", problems: ["洛谷 P1886 滑动窗口", "洛谷 P2657 栈", "2021CCPC 珠海 G"] },
+      { name: "KMP / 字符串哈希", p1: ["洛谷 P3375 KMP（普及）"], p2: ["洛谷 P4391 无线传输（普及）", "洛谷 P4824 KMP删除（提高）"], p3: ["洛谷 P3805 Manacher（提高）"],
+        check: "KMP 前缀函数、字符串哈希模板一次写对", pitfalls: "next 数组边界；哈希冲突；取模/双哈希" },
+      { name: "复习 · 线段树/树状数组", p1: ["洛谷 P3372 线段树1"], p2: ["洛谷 P1908 逆序对"], p3: ["洛谷 P3373 线段树2"], check: "数据结构模板保持手感", pitfalls: "" },
+      { name: "复习 · DP", p1: ["洛谷 P1048 采药"], p2: ["洛谷 P1880 石子合并"], p3: ["洛谷 P1020 导弹拦截"], check: "DP 状态设计不遗忘", pitfalls: "" },
     ],
   },
+
+  // ================= 阶段 3：银牌综合训练（月 10-12） =================
   {
-    mo: 9, title: "银牌新算法 Ⅴ：网络流 Dinic 基础",
-    core: "Dinic 最大流 / 基础建图模型，银牌保底模型",
-    daily: "1 道模板入门题 + 1 道中档变形题 + 1 道区域真题",
-    goal: "看懂基础网络流建图，能处理简单模型",
-    types: ["模板入门", "中档变形", "区域真题"],
-    topics: [
-      { name: "网络流 Dinic", problems: ["洛谷 P3381 Dinic 模板", "洛谷 P2756 飞行员配对", "2022CCPC 哈尔滨 I"] },
-    ],
-  },
-  {
-    mo: 10, title: "全专题混合刷题 + 错题复盘",
-    core: "不再按专题，混合随机刷题，大量重做前面所有月份错题，训练快速识别算法模型",
-    daily: "3 道混合真题，覆盖前面所有专题",
-    goal: "快速读题、判断该用什么算法，消除知识遗忘",
+    mo: 10, stage: 3, title: "全专题混合刷题 + 错题复盘",
+    core: "不再按专题，混合刷题，训练快速识别算法模型",
+    daily: "3 道混合真题（覆盖前面所有专题）",
+    goal: "快速读题、判断算法，消除知识遗忘",
     types: ["混合真题", "混合真题", "混合真题"],
     pools: [ICPC_ZHENTI, ICPC_ZHENTI, ICPC_ZHENTI],
     topics: [
-      { name: "全专题混合真题（自动轮换）", problems: ICPC_ZHENTI },
+      { name: "全专题混合真题（自动轮换）", problems: ICPC_ZHENTI, check: "拿到题 30 秒内判断出算法方向", pitfalls: "多知识点混合题，先想清楚再写码" },
     ],
   },
   {
-    mo: 11, title: "区域赛套题训练",
-    core: "每周 2 套 ICPC/CCPC 区域赛真题完整计时训练，模拟赛场环境",
+    mo: 11, stage: 3, title: "区域赛套题训练",
+    core: "每周 2 套 ICPC/CCPC 区域赛真题完整计时训练",
     daily: "平日 3 道专题真题，周末完整套题模拟赛",
-    goal: "适应 3-5 小时比赛节奏，训练读题、代码调试、时间分配",
+    goal: "适应 3-5 小时比赛节奏，训练读题、调试、时间分配",
     types: ["专题真题", "专题真题", "专题真题"],
     pools: [ICPC_ZHENTI, ICPC_ZHENTI, ICPC_ZHENTI],
     weekendTask: "周末：完整套题模拟赛（5 小时计时）",
     topics: [
-      { name: "区域赛套题（历年真题轮换）", problems: ICPC_ZHENTI },
+      { name: "区域赛套题（历年真题轮换）", problems: ICPC_ZHENTI, check: "模拟赛稳定 A 出 2-3 题，时间分配合理", pitfalls: "比赛节奏：先易后难，卡题及时换题" },
     ],
   },
   {
-    mo: 12, title: "赛前冲刺",
-    core: "刷近年同赛区区域真题，重做所有错题，整理个人模板库，针对性补齐薄弱专题",
+    mo: 12, stage: 3, title: "赛前冲刺",
+    core: "刷近年同赛区区域真题，重做所有错题，整理个人模板库",
     daily: "薄弱专题真题 + 错题复盘，保持手感",
     goal: "稳定发挥，冲击区域银牌",
     types: ["薄弱真题", "错题复盘", "真题"],
     pools: [ICPC_ZHENTI, ["重做本月 / 本周错题本全部错题"], ICPC_ZHENTI],
     topics: [
-      { name: "冲刺：薄弱专题 + 错题复盘", problems: ICPC_ZHENTI },
+      { name: "冲刺：薄弱专题 + 错题复盘", problems: ICPC_ZHENTI, check: "错题本清空，模板库完整，心态稳定", pitfalls: "考前不再学新算法，只做复习 + 保持手感" },
     ],
   },
 ];
@@ -189,12 +224,14 @@ function icpcPlanMonth(date) {
   return Math.min(11, Math.max(0, m));
 }
 
-// 由 topics 派生每日三题的三个「题池」（第 j 列）
+// 由 topics 派生每日三题的三个「题池」（p1 入门巩固 / p2 中档 / p3 综合）
 function icpcPools(month) {
   if (month.pools) return month.pools;
   const pools = [[], [], []];
   month.topics.forEach(function (t) {
-    t.problems.forEach(function (p, j) { if (pools[j]) pools[j].push(p); });
+    (t.p1 || []).forEach(function (p) { pools[0].push(p); });
+    (t.p2 || []).forEach(function (p) { pools[1].push(p); });
+    (t.p3 || []).forEach(function (p) { pools[2].push(p); });
   });
   return pools;
 }
@@ -211,7 +248,8 @@ function icpcDayTasks(dateKey) {
   month.types.forEach(function (type, j) {
     const id = dateKey + "|A" + j;
     if (icpcState.deleted[id]) return;
-    const pool = pools[j] || ["（本轮无固定题目，自选同专题）"];
+    const pool = pools[j];
+    if (!pool || !pool.length) return;   // 该档无题则跳过
     const name = pool[((dayIndex + j) % pool.length + pool.length) % pool.length];
     list.push({ id: id, kind: "auto", type: type, name: name });
   });
@@ -439,27 +477,26 @@ function icpcBuildProgress() {
     '<div class="stat"><span class="stat-value">' + Math.round(icpcWeekMinutes() / 60 * 10) / 10 + '</span><span class="stat-name">本周时长(h)</span></div>';
   wrap.appendChild(stats);
 
-  // 本月专题
+  // 本月专题（3 档题 + 验收标准 + 易错点）
   const tl = document.createElement("div");
   tl.className = "icpc-topic-list";
   const tlLabel = document.createElement("div");
   tlLabel.className = "note-label";
-  tlLabel.textContent = "🧩 本月专题（每日三题从下表中自动轮换）";
+  tlLabel.textContent = "🧩 本月专题（入门巩固 / 中档 / 综合 三档 · 含验收标准与易错点）";
   tl.appendChild(tlLabel);
-  const tblWrap = document.createElement("div");
-  tblWrap.className = "table-wrap";
-  const table = document.createElement("table");
-  table.className = "roadmap-table";
-  table.innerHTML = "<thead><tr><th>专题</th><th>题目</th></tr></thead>";
-  const tbody = document.createElement("tbody");
   s.month.topics.forEach(function (t) {
-    const tr = document.createElement("tr");
-    tr.innerHTML = "<td><b>" + t.name + "</b></td><td>" + t.problems.join(" · ") + "</td>";
-    tbody.appendChild(tr);
+    const box = document.createElement("div");
+    box.className = "icpc-topic";
+    let html = '<div class="icpc-topic-name"><b>' + t.name + '</b></div>';
+    if (t.p1 && t.p1.length) html += '<div class="icpc-topic-row">🟢 入门巩固：' + t.p1.join(" · ") + '</div>';
+    if (t.p2 && t.p2.length) html += '<div class="icpc-topic-row">🟡 中档：' + t.p2.join(" · ") + '</div>';
+    if (t.p3 && t.p3.length) html += '<div class="icpc-topic-row">🔴 综合：' + t.p3.join(" · ") + '</div>';
+    if (t.problems) html += '<div class="icpc-topic-row">🎯 题目池：' + t.problems.join(" · ") + '</div>';
+    if (t.check) html += '<div class="icpc-topic-check">✅ 验收：' + t.check + '</div>';
+    if (t.pitfalls) html += '<div class="icpc-topic-pit">⚠️ 易错：' + t.pitfalls + '</div>';
+    box.innerHTML = html;
+    tl.appendChild(box);
   });
-  table.appendChild(tbody);
-  tblWrap.appendChild(table);
-  tl.appendChild(tblWrap);
   wrap.appendChild(tl);
 
   return wrap;
@@ -822,7 +859,7 @@ function icpcBuildRoadmap() {
     const tr = document.createElement("tr");
     tr.innerHTML =
       "<td>第 " + m.mo + " 月</td>" +
-      "<td><b>" + m.title + "</b></td>" +
+      "<td><b>阶段" + m.stage + " · " + m.title + "</b></td>" +
       "<td>" + m.core + "</td>" +
       "<td>" + m.daily + "</td>" +
       "<td>" + m.goal + "</td>";
