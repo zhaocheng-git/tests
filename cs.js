@@ -108,6 +108,46 @@ const CS_COURSES = {
   },
 };
 
+// ---------- 每周学习资源（在哪里学） ----------
+const CS_RES = {
+  // 操作系统
+  "os-1": "OSTEP 第4章 · 王道408 第2章",
+  "os-2": "OSTEP 第7-9章 · 王道408 第2章",
+  "os-3": "OSTEP 第28-31章 · 王道408 第2章",
+  "os-4": "OSTEP 第32章 · 王道408 第2章",
+  "os-5": "OSTEP 第13-16章 · 王道408 第3章",
+  "os-6": "OSTEP 第18-22章 · 王道408 第3章",
+  "os-7": "OSTEP 第39-40章 · 王道408 第4章",
+  "os-8": "OSTEP 第36-37章 · 王道408 第5章",
+  // 计算机网络
+  "net-1": "《自顶向下》第1章",
+  "net-2": "《自顶向下》第2章",
+  "net-3": "《自顶向下》第3章",
+  "net-4": "《自顶向下》第3章（拥塞控制）",
+  "net-5": "《自顶向下》第4-5章",
+  "net-6": "《自顶向下》第6章",
+  "net-7": "《自顶向下》第1章 + 第8章",
+  "net-8": "《图解HTTP》+ HTTP2/3 资料",
+  // 分布式系统
+  "dist-1": "6.824 Lecture 1-2 · DDIA 第1-2章",
+  "dist-2": "6.824 Lecture 1 · Lab1 文档",
+  "dist-3": "Raft 论文原文",
+  "dist-4": "6.824 Lecture 5-6 · Lab2A",
+  "dist-5": "6.824 Lab2B 文档",
+  "dist-6": "6.824 Lab2C/D 文档",
+  "dist-7": "6.824 Lecture 8 · Lab3",
+  "dist-8": "6.824 Lab4 文档",
+  "dist-9": "Paxos 论文 · DDIA 第9章",
+  "dist-10": "DDIA 第5-9章",
+  // 并行计算
+  "parallel-1": "Pacheco 第1-2章 · CSAPP 12.1-12.4",
+  "parallel-2": "Pacheco 第5章",
+  "parallel-3": "Pacheco 第3章",
+  "parallel-4": "Pacheco 第6-7章",
+  "parallel-5": "CUDA C Programming Guide 第1-3章",
+  "parallel-6": "Pacheco 第2章 · CSAPP 12.5-12.7",
+};
+
 // ---------- 状态（独立 LocalStorage key） ----------
 const CS_KEY = "cs-v1-state";
 
@@ -454,6 +494,14 @@ function csBuildDay(d, todayKey) {
     desc.className = "cs-day-desc";
     desc.textContent = t.week.desc;
     body.appendChild(desc);
+
+    const res = CS_RES[t.cid + "-" + t.week.w];
+    if (res) {
+      const resEl = document.createElement("div");
+      resEl.className = "cs-day-res";
+      resEl.innerHTML = "📖 学习资源：<b>" + res + "</b>";
+      body.appendChild(resEl);
+    }
 
     const cbLabel = document.createElement("label");
     cbLabel.className = "cs-day-check";
