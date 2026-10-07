@@ -4,10 +4,7 @@
 // 由 index.html 末尾 <script src="icpc.js"> 加载，挂到 #icpc-wrap
 // ============================================================
 
-// ---------- 全年 12 个月规划数据 ----------
-// 每月：mo / title / core / daily / goal / types[]（每日三题的标签）/ topics[]
-// months 1-9 的每日三题按「列」从 topics 派生（每 topic 3 题：坑/模板、变形/中档、真题）
-// months 10-12 直接给出 pools（混合真题 / 套题 / 错题复盘）
+// ---------- 区域赛真题库（阶段 3 综合训练用） ----------
 const ICPC_ZHENTI = [
   "2021CCPC 哈尔滨 B", "2022ICPC 杭州 A", "2023CCPC 威海 E",
   "2022ICPC 南京 D", "2021ICPC 上海 G", "2020CCPC 长春 D",
