@@ -1,27 +1,25 @@
 // ============================================================
 // 计算机基础专业课 · 并行学习规划（独立 · 不影响算法板块）
-// 4 个子栏目：操作系统 / 计算机网络 / 分布式系统 / 并行计算
-// 数据 + 状态 + 渲染 全部自包含；LocalStorage 用独立 key「cs-v1-state」
-// 由 index.html 末尾 <script src="cs.js"> 加载，挂到 #cs-wrap
+// 4 门课：操作系统 / 计算机网络 / 分布式系统 / 并行计算
+// 自动每日任务（4 门课周任务按日期映射）+ 打卡日历 + 课程详情
+// LocalStorage 独立 key「cs-v1-state」，挂到 #cs-wrap
 // ============================================================
 
-// ---------- 总阶段划分（4 个阶段 = 4 门课，建议与算法训练同步推进） ----------
+// ---------- 总阶段划分（4 个阶段 = 4 门课） ----------
 const CS_STAGES = [
-  { no: 1, name: "操作系统",        icon: "🖥", pos: "考研408重点 · 面试必问",   weeks: 8,  suggest: "打地基，与算法刷题同步，每天抽 1h 看一节 + 周末做小项目" },
-  { no: 2, name: "计算机网络",      icon: "🌐", pos: "考研408重点 · 面试必问",   weeks: 8,  suggest: "紧跟 OS 之后，二者可并行，重在抓包 + 手写协议流程" },
-  { no: 3, name: "分布式系统",      icon: "🕸", pos: "研究生面试加分 + 科研方向", weeks: 10, suggest: "难度最高放后期，投入整块时间做 6.824 Lab" },
-  { no: 4, name: "并行计算",        icon: "⚡", pos: "面试加分 · 高性能计算",     weeks: 6,  suggest: "轻量，穿插在分布式期间，重在动手写并行程序" },
+  { no: 1, name: "操作系统",   icon: "🖥", pos: "考研408重点 · 面试必问",   weeks: 8,  suggest: "打地基，与算法刷题同步，每天抽 1h" },
+  { no: 2, name: "计算机网络", icon: "🌐", pos: "考研408重点 · 面试必问",   weeks: 8,  suggest: "紧跟 OS 之后，重在抓包 + 手写协议流程" },
+  { no: 3, name: "分布式系统", icon: "🕸", pos: "研究生面试加分 + 科研方向", weeks: 10, suggest: "难度最高放后期，投入整块时间做 6.824 Lab" },
+  { no: 4, name: "并行计算",   icon: "⚡", pos: "面试加分 · 高性能计算",     weeks: 6,  suggest: "轻量，穿插在分布式期间，重在动手写并行程序" },
 ];
 
 // ---------- 4 门课详细规划 ----------
-// 每门课：pos 定位 / goal 目标 / books 书目 / weeks 每周任务 / check 验收 / project 小项目
-// 周任务 tag：req=必学 opt=选学；key：ky=考研重点 iv=面试加分（可空）
 const CS_COURSES = {
   os: {
     id: "os", name: "操作系统", icon: "🖥", pos: "考研408重点 · 面试必问",
     goal: "系统掌握「进程/线程、内存、文件、IO」四大子系统，能独立做 408 真题，能答透面试高频题。",
     books: [
-      { name: "《操作系统导论》(OSTEP)", tag: "req", note: "免费、图解清晰，主线教材（英文原版 + 中文版都有）" },
+      { name: "《操作系统导论》(OSTEP)", tag: "req", note: "免费、图解清晰，主线教材" },
       { name: "王道 408 操作系统", tag: "req", note: "考研真题导向，配合刷题" },
       { name: "《现代操作系统》(Tanenbaum)", tag: "opt", note: "选学，深入原理" },
       { name: "CSAPP 第 8~10 章", tag: "opt", note: "选学，从程序员视角看 OS" },
@@ -44,7 +42,7 @@ const CS_COURSES = {
     id: "net", name: "计算机网络", icon: "🌐", pos: "考研408重点 · 面试必问",
     goal: "掌握五层体系结构，重点吃透传输层 TCP、网络层 IP、应用层 HTTP，能完整讲清协议流程。",
     books: [
-      { name: "《计算机网络：自顶向下方法》", tag: "req", note: "主线教材，讲解清楚、配实例" },
+      { name: "《计算机网络：自顶向下方法》", tag: "req", note: "主线教材，讲解清楚" },
       { name: "王道 408 计算机网络", tag: "req", note: "考研真题导向" },
       { name: "《TCP/IP 详解 卷1》", tag: "opt", note: "选学，协议细节深入" },
       { name: "《图解HTTP》", tag: "opt", note: "选学，轻松入门 HTTP" },
@@ -65,12 +63,12 @@ const CS_COURSES = {
 
   dist: {
     id: "dist", name: "分布式系统", icon: "🕸", pos: "研究生面试加分 + 科研方向",
-    goal: "完成 MIT6.824 核心 Lab，吃透 Raft 一致性算法，理解分布式复制、容错、共识的核心思想（华科李钦宾分布式方向对口）。",
+    goal: "完成 MIT6.824 核心 Lab，吃透 Raft 一致性算法，理解分布式复制、容错、共识（华科李钦宾分布式方向对口）。",
     books: [
       { name: "MIT6.824 课程 + Lab", tag: "req", note: "主线，边看 Lecture 边做 Lab" },
-      { name: "Raft 论文《In Search of an Understandable Consensus Algorithm》", tag: "req", note: "精读，面试必讲" },
+      { name: "Raft 论文", tag: "req", note: "精读，面试必讲" },
       { name: "《数据密集型应用系统设计》(DDIA)", tag: "opt", note: "选学，面试加分神书" },
-      { name: "Paxos 论文《The Part-Time Parliament》", tag: "opt", note: "选学，进阶共识" },
+      { name: "Paxos 论文", tag: "opt", note: "选学，进阶共识" },
     ],
     weeks: [
       { w: 1, name: "分布式基础：CAP、一致性模型、时钟", tag: "req", key: "iv", desc: "CAP 取舍、线性一致/最终一致、逻辑时钟" },
@@ -80,12 +78,12 @@ const CS_COURSES = {
       { w: 5, name: "6.824 Lab2B 日志复制", tag: "req", key: "", desc: "日志复制、一致性检查" },
       { w: 6, name: "6.824 Lab2C 持久化 + Lab2D 日志压缩", tag: "req", key: "", desc: "持久化、快照" },
       { w: 7, name: "6.824 Lab3A/B KV 服务 + 快照", tag: "req", key: "", desc: "基于 Raft 的容错 KV 存储" },
-      { w: 8, name: "6.824 Lab4A/B 分片 + 配置变更", tag: "opt", key: "iv", desc: "分片 KV、shard 迁移（选做，面试加分）" },
-      { w: 9, name: "分布式共识进阶：Paxos、ZAB、Raft 对比", tag: "opt", key: "iv", desc: "多 Paxos、ZAB、Raft 异同（面试加分）" },
-      { w: 10, name: "DDIA 精读：复制 / 分区 / 事务 / 一致性", tag: "opt", key: "iv", desc: "分布式存储核心章节（面试加分）" },
+      { w: 8, name: "6.824 Lab4A/B 分片 + 配置变更", tag: "opt", key: "iv", desc: "分片 KV、shard 迁移（选做）" },
+      { w: 9, name: "分布式共识进阶：Paxos、ZAB、Raft", tag: "opt", key: "iv", desc: "多 Paxos、ZAB、Raft 异同" },
+      { w: 10, name: "DDIA 精读：复制 / 分区 / 事务 / 一致性", tag: "opt", key: "iv", desc: "分布式存储核心章节" },
     ],
     check: "完成 6.824 Lab1~Lab3（Lab4 选做）；能讲清 Raft 选举、日志复制、快照机制；能回答「为什么需要分布式」「CAP 怎么取舍」「Raft vs Paxos」。",
-    project: "MIT6.824 全部 Lab（本身就是含金量最高的项目）；（选做）用 Raft 自己实现一个分布式 KV 存储。",
+    project: "MIT6.824 全部 Lab（本身就是含金量最高的项目）；（选做）用 Raft 实现一个分布式 KV 存储。",
   },
 
   parallel: {
@@ -102,11 +100,11 @@ const CS_COURSES = {
       { w: 2, name: "OpenMP：并行 for、规约、调度", tag: "req", key: "iv", desc: "pragma、reduction、schedule" },
       { w: 3, name: "MPI：点对点通信、集合通信", tag: "req", key: "iv", desc: "Send/Recv、Broadcast、Reduce" },
       { w: 4, name: "并行算法：归约、扫描、排序", tag: "req", key: "", desc: "并行归约、前缀和、并行快排" },
-      { w: 5, name: "GPU / CUDA 入门", tag: "opt", key: "iv", desc: "核函数、线程层次、内存层次（面试加分）" },
+      { w: 5, name: "GPU / CUDA 入门", tag: "opt", key: "iv", desc: "核函数、线程层次、内存层次" },
       { w: 6, name: "并行性能分析：加速比、效率、阿姆达尔", tag: "req", key: "iv", desc: "加速比、阿姆达尔定律、假共享、负载均衡" },
     ],
     check: "能用 OpenMP/MPI 写出并行程序并对比串行加速比；能解释阿姆达尔定律、假共享、负载均衡；理解 CPU 与 GPU 并行的差异。",
-    project: "① 并行化矩阵乘法（OpenMP + CUDA 双版本，对比性能）；② 实现并行归约 / 前缀和。",
+    project: "① 并行化矩阵乘法（OpenMP + CUDA 双版本）；② 实现并行归约 / 前缀和。",
   },
 };
 
@@ -114,11 +112,13 @@ const CS_COURSES = {
 const CS_KEY = "cs-v1-state";
 
 function csDefaultState() {
-  return { done: {} };  // { "os-1": "2026-10-07", ... } 任务id → 完成日期
+  return { start: null, done: {}, checkin: {} };
+  // done: { "os-1": "2026-10-07" } 周任务打卡
+  // checkin: { "2026-10-07": true } 每日打卡
 }
 
 let csState = csLoad();
-let csCurrent = "os";   // 当前子栏目
+let csCurrent = "os";
 
 function csLoad() {
   try {
@@ -132,21 +132,58 @@ function csSave() {
   localStorage.setItem(CS_KEY, JSON.stringify(csState));
 }
 
-// ---------- 日期工具（自包含，不依赖其它脚本） ----------
+// ---------- 日期工具 ----------
 function csPad(n) { return String(n).padStart(2, "0"); }
-function csToday() {
-  const t = new Date();
-  return t.getFullYear() + "-" + csPad(t.getMonth() + 1) + "-" + csPad(t.getDate());
+function csToday() { const t = new Date(); t.setHours(0, 0, 0, 0); return t; }
+function csKey(d) { return d.getFullYear() + "-" + csPad(d.getMonth() + 1) + "-" + csPad(d.getDate()); }
+function csParse(k) { const p = k.split("-").map(Number); return new Date(p[0], p[1] - 1, p[2]); }
+function csAddDays(d, n) { const r = new Date(d); r.setDate(r.getDate() + n); return r; }
+function csWeek(d) { return "周" + ["日", "一", "二", "三", "四", "五", "六"][d.getDay()]; }
+function csStartDate() { return csState.start ? csParse(csState.start) : null; }
+
+// 4 门课所有周任务按顺序排成一条时间线（OS → 计网 → 分布式 → 并行）
+function csAllTasks() {
+  const order = ["os", "net", "dist", "parallel"];
+  const tasks = [];
+  order.forEach(function (cid) {
+    const c = CS_COURSES[cid];
+    c.weeks.forEach(function (wk) {
+      tasks.push({ cid: cid, course: c, week: wk });
+    });
+  });
+  return tasks;
 }
 
-// ---------- 任务 id 与统计 ----------
-function csTaskId(courseId, w) { return courseId + "-" + w; }
+// 某天对应的周任务（从起始日起，每 7 天推进一个周任务）
+function csDayTask(dateKey) {
+  const s = csStartDate();
+  if (!s) return null;
+  const dayIndex = Math.round((csParse(dateKey) - s) / 86400000);
+  if (dayIndex < 0) return null;
+  const weekIndex = Math.floor(dayIndex / 7);
+  const tasks = csAllTasks();
+  if (weekIndex >= tasks.length) return null;
+  return tasks[weekIndex];
+}
 
-function csCourseDone(courseId) {
-  const course = CS_COURSES[courseId];
-  let n = 0;
-  course.weeks.forEach(function (wk) { if (csState.done[csTaskId(courseId, wk.w)]) n++; });
-  return n;
+function csDayState(dateKey) {
+  const t = csDayTask(dateKey);
+  if (!t) return "none";
+  if (csState.checkin[dateKey]) return "done";
+  const today = csKey(csToday());
+  if (dateKey === today) return "today";
+  if (dateKey < today) return "missed";
+  return "upcoming";
+}
+
+// 全部任务覆盖的日期范围（32 周 = 224 天）
+function csAllDays() {
+  const s = csStartDate();
+  const days = [];
+  if (!s) return days;
+  const total = csAllTasks().length * 7;
+  for (let i = 0; i < total; i++) days.push(csAddDays(s, i));
+  return days;
 }
 
 // ---------- 渲染入口 ----------
@@ -161,51 +198,296 @@ function renderCs() {
 
   const sum = document.createElement("summary");
   sum.className = "roadmap-summary";
-  sum.textContent = "🧭 计算机基础专业课 · 并行学习规划（操作系统 / 计网 / 分布式 / 并行计算）";
+  sum.textContent = "🧭 计算机基础专业课 · 并行学习规划（操作系统 / 计网 / 分布式 / 并行）";
   card.appendChild(sum);
 
-  card.appendChild(csBuildStages());
+  card.appendChild(csBuildSetup());
+
+  if (!csStartDate()) { wrap.appendChild(card); return; }
+
+  card.appendChild(csBuildProgress());
+  card.appendChild(csBuildCalendar());
+  card.appendChild(csBuildDaily());
   card.appendChild(csBuildTabs());
   card.appendChild(csBuildCourse(csCurrent));
+  card.appendChild(csBuildStages());
 
   wrap.appendChild(card);
 }
 
-// 总阶段划分
-function csBuildStages() {
+// 设置开始日期 + 规则
+function csBuildSetup() {
+  const box = document.createElement("div");
+  box.className = "cs-setup";
+
+  const label = document.createElement("p");
+  label.className = "subtitle";
+  label.textContent = "选择开始日期，自动从该日期生成每日学习任务（4 门课共 32 周，每 7 天推进一个主题）。";
+  box.appendChild(label);
+
+  const row = document.createElement("div");
+  row.className = "cs-start-row";
+  const input = document.createElement("input");
+  input.type = "date";
+  input.className = "cs-start-input";
+  input.id = "cs-start";
+  if (csState.start) input.value = csState.start;
+  input.addEventListener("change", function () {
+    if (!input.value) return;
+    csState.start = input.value;
+    csSave();
+    renderCs();
+  });
+  const nowBtn = document.createElement("button");
+  nowBtn.className = "cs-add-btn";
+  nowBtn.textContent = "从今天开始";
+  nowBtn.addEventListener("click", function () {
+    csState.start = csKey(csToday());
+    csSave();
+    renderCs();
+  });
+  row.append(input, nowBtn);
+  box.appendChild(row);
+
+  if (csState.start) {
+    const info = document.createElement("p");
+    info.className = "subtitle";
+    info.textContent = "计划已开始：" + csState.start + " · 共 32 周。修改日期会整体平移计划（打卡记录按日期对齐保留）。";
+    box.appendChild(info);
+  }
+
+  const rules = document.createElement("div");
+  rules.className = "cs-rules";
+  rules.innerHTML =
+    "<b>📋 学习节奏</b>" +
+    "<ul>" +
+    "<li>与算法训练同步：工作日每天固定 1~1.5h 学专业课，周末整块时间做小项目。</li>" +
+    "<li>每 7 天推进一个主题，每天打卡记录学习；下面「每日任务」可勾选当天完成。</li>" +
+    "<li>区分必学/选学，标注 🔴考研重点 / 🟣面试加分，先抓必学+考研重点。</li>" +
+    "<li>所有数据仅存本地浏览器（localStorage）。</li>" +
+    "</ul>";
+  box.appendChild(rules);
+
+  return box;
+}
+
+// 总进度（4 门课周任务完成情况）
+function csBuildProgress() {
   const wrap = document.createElement("div");
-  wrap.className = "cs-section";
+  wrap.className = "cs-progress";
 
   const head = document.createElement("h3");
   head.className = "sub-title";
   head.style.marginTop = "0";
-  head.textContent = "🗺️ 总阶段划分（4 个阶段 · 与算法训练同步推进）";
+  head.textContent = "📈 总进度 · 4 门课";
   wrap.appendChild(head);
 
-  const tableWrap = document.createElement("div");
-  tableWrap.className = "table-wrap";
-  const table = document.createElement("table");
-  table.className = "roadmap-table";
-  table.innerHTML = "<thead><tr><th>阶段</th><th>课程</th><th>定位</th><th>建议周期</th><th>节奏建议</th></tr></thead>";
-  const tbody = document.createElement("tbody");
-  CS_STAGES.forEach(function (s) {
-    const tr = document.createElement("tr");
-    tr.innerHTML =
-      "<td>第 " + s.no + " 阶段</td>" +
-      "<td><b>" + s.icon + " " + s.name + "</b></td>" +
-      "<td>" + s.pos + "</td>" +
-      "<td>" + s.weeks + " 周</td>" +
-      "<td>" + s.suggest + "</td>";
-    tbody.appendChild(tr);
-  });
-  table.appendChild(tbody);
-  tableWrap.appendChild(table);
-  wrap.appendChild(tableWrap);
+  const tasks = csAllTasks();
+  const done = tasks.filter(function (t) { return csState.done[csTaskId(t.cid, t.week.w)]; }).length;
+  const pct = tasks.length ? Math.round(done / tasks.length * 100) : 0;
+
+  const num = document.createElement("div");
+  num.className = "overview-number";
+  num.textContent = pct + "%";
+  wrap.appendChild(num);
+
+  const lbl = document.createElement("div");
+  lbl.className = "overview-label";
+  lbl.textContent = "周任务完成 " + done + " / " + tasks.length;
+  wrap.appendChild(lbl);
+
+  const bar = document.createElement("div");
+  bar.className = "progress-bar";
+  const fill = document.createElement("div");
+  fill.className = "progress-fill";
+  fill.style.width = pct + "%";
+  bar.appendChild(fill);
+  wrap.appendChild(bar);
 
   return wrap;
 }
 
-// 子栏目 Tab 导航
+// 打卡日历（月历，点击标记当天打卡）
+function csBuildCalendar() {
+  const wrap = document.createElement("div");
+  wrap.className = "cs-calendar";
+
+  const head = document.createElement("h3");
+  head.className = "sub-title";
+  head.textContent = "🔥 每日打卡（绿=已打卡 · 红=逾期 · 蓝框=今天 · 点击标记）";
+  wrap.appendChild(head);
+
+  const weekdays = document.createElement("div");
+  weekdays.className = "cal-weekdays";
+  weekdays.innerHTML = "<span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>";
+  wrap.appendChild(weekdays);
+
+  const today = csToday();
+  const y = today.getFullYear(), m = today.getMonth();
+  const first = new Date(y, m, 1);
+  const dim = new Date(y, m + 1, 0).getDate();
+  const todayKey = csKey(today);
+
+  const grid = document.createElement("div");
+  grid.className = "cal-grid";
+  for (let i = 0; i < first.getDay(); i++) {
+    const b = document.createElement("div");
+    b.className = "cal-day blank";
+    grid.appendChild(b);
+  }
+  for (let d = 1; d <= dim; d++) {
+    const dk = csKey(new Date(y, m, d));
+    const st = csDayState(dk);
+    const cell = document.createElement("div");
+    cell.className = "cal-day";
+    if (st === "done") cell.classList.add("cs-cal-done");
+    else if (st === "missed") cell.classList.add("cs-cal-missed");
+    if (dk === todayKey) cell.classList.add("today");
+    cell.textContent = d;
+    cell.title = dk;
+    cell.addEventListener("click", function () {
+      if (!csDayTask(dk)) return;
+      if (csState.checkin[dk]) delete csState.checkin[dk];
+      else csState.checkin[dk] = true;
+      csSave();
+      renderCs();
+    });
+    grid.appendChild(cell);
+  }
+  wrap.appendChild(grid);
+
+  return wrap;
+}
+
+// 每日任务时间线（按月分组）
+function csBuildDaily() {
+  const wrap = document.createElement("div");
+  wrap.className = "cs-timeline";
+
+  const head = document.createElement("h3");
+  head.className = "sub-title";
+  head.textContent = "📅 每日任务时间线（点日期展开 / 收起，勾选当天完成）";
+  wrap.appendChild(head);
+
+  const todayKey = csKey(csToday());
+  const days = csAllDays();
+
+  const groups = [];
+  let cur = -1;
+  days.forEach(function (d) {
+    const gk = d.getFullYear() + "-" + d.getMonth();
+    if (gk !== cur) { cur = gk; groups.push({ gk: gk, days: [] }); }
+    groups[groups.length - 1].days.push(d);
+  });
+
+  groups.forEach(function (g) {
+    const firstDay = g.days[0];
+    const mHead = document.createElement("div");
+    const isCurrent = (firstDay.getFullYear() === csToday().getFullYear() && firstDay.getMonth() === csToday().getMonth());
+    mHead.className = "cs-month-head" + (isCurrent ? " open" : "");
+    mHead.innerHTML =
+      "<span>" + firstDay.getFullYear() + " 年 " + (firstDay.getMonth() + 1) + " 月</span>" +
+      "<span class=\"cs-month-arrow\">" + (isCurrent ? "▾" : "▸") + "</span>";
+    mHead.addEventListener("click", function () {
+      const body = mHead.nextSibling;
+      const open = body.style.display !== "none";
+      body.style.display = open ? "none" : "";
+      mHead.classList.toggle("open", !open);
+      mHead.querySelector(".cs-month-arrow").textContent = open ? "▸" : "▾";
+    });
+    wrap.appendChild(mHead);
+
+    const mBody = document.createElement("div");
+    mBody.className = "cs-month-body";
+    mBody.style.display = isCurrent ? "" : "none";
+    g.days.forEach(function (d) {
+      mBody.appendChild(csBuildDay(d, todayKey));
+    });
+    wrap.appendChild(mBody);
+  });
+
+  return wrap;
+}
+
+function csBuildDay(d, todayKey) {
+  const dk = csKey(d);
+  const isToday = dk === todayKey;
+  const t = csDayTask(dk);
+
+  const row = document.createElement("div");
+  row.className = "cs-day" + (isToday ? " cs-today cs-open" : "");
+
+  const headEl = document.createElement("div");
+  headEl.className = "cs-day-head";
+  const dateEl = document.createElement("span");
+  dateEl.className = "cs-date";
+  dateEl.textContent = (d.getMonth() + 1) + "." + d.getDate() + " · " + csWeek(d);
+  headEl.appendChild(dateEl);
+  if (isToday) {
+    const badge = document.createElement("span");
+    badge.className = "cs-badge";
+    badge.textContent = "今天";
+    headEl.appendChild(badge);
+  }
+  const checked = !!csState.checkin[dk];
+  const stEl = document.createElement("span");
+  stEl.className = "cs-day-count" + (checked ? " cs-done" : "");
+  stEl.textContent = checked ? "✅ 已打卡" : (t ? "待打卡" : "—");
+  headEl.appendChild(stEl);
+
+  const arrow = document.createElement("span");
+  arrow.className = "cs-arrow";
+  arrow.textContent = isToday ? "▾" : "▸";
+  headEl.appendChild(arrow);
+
+  const body = document.createElement("div");
+  body.className = "cs-day-body";
+  body.style.display = isToday ? "" : "none";
+
+  if (t) {
+    const label = document.createElement("div");
+    label.className = "cs-day-task";
+    label.innerHTML = "<b>" + t.course.icon + " " + t.course.name + " · 第 " + t.week.w + " 周</b><br>" + t.week.name;
+    body.appendChild(label);
+
+    const desc = document.createElement("div");
+    desc.className = "cs-day-desc";
+    desc.textContent = t.week.desc;
+    body.appendChild(desc);
+
+    const cbLabel = document.createElement("label");
+    cbLabel.className = "cs-day-check";
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = checked;
+    cb.addEventListener("change", function () {
+      if (cb.checked) csState.checkin[dk] = true;
+      else delete csState.checkin[dk];
+      csSave();
+      renderCs();
+    });
+    cbLabel.append(cb, document.createTextNode(" 今日完成"));
+    body.appendChild(cbLabel);
+  } else {
+    const empty = document.createElement("div");
+    empty.className = "cs-day-desc";
+    empty.textContent = "计划已结束（32 周完成）。";
+    body.appendChild(empty);
+  }
+
+  headEl.addEventListener("click", function () {
+    const open = body.style.display !== "none";
+    body.style.display = open ? "none" : "";
+    arrow.textContent = open ? "▸" : "▾";
+    row.classList.toggle("cs-open", !open);
+  });
+
+  row.appendChild(headEl);
+  row.appendChild(body);
+  return row;
+}
+
+// 子栏目 Tab
 function csBuildTabs() {
   const wrap = document.createElement("div");
   wrap.className = "cs-tabs";
@@ -214,46 +496,26 @@ function csBuildTabs() {
     const btn = document.createElement("button");
     btn.className = "cs-tab" + (id === csCurrent ? " active" : "");
     btn.textContent = c.icon + " " + c.name;
-    btn.addEventListener("click", function () {
-      csCurrent = id;
-      renderCs();
-    });
+    btn.addEventListener("click", function () { csCurrent = id; renderCs(); });
     wrap.appendChild(btn);
   });
   return wrap;
 }
 
-// 当前课程内容
+// 当前课程详情
 function csBuildCourse(courseId) {
   const c = CS_COURSES[courseId];
   const box = document.createElement("div");
   box.className = "cs-course";
 
-  // 定位 + 目标
   const goal = document.createElement("div");
   goal.className = "cs-goal";
-  goal.innerHTML =
-    '<span class="cs-pos">' + c.pos + '</span>' +
-    '<div>🎯 学习目标：<b>' + c.goal + '</b></div>';
+  goal.innerHTML = '<span class="cs-pos">' + c.pos + '</span><div>🎯 学习目标：<b>' + c.goal + '</b></div>';
   box.appendChild(goal);
 
-  // 进度小结
-  const prog = document.createElement("div");
-  prog.className = "cs-course-progress";
-  const done = csCourseDone(courseId);
-  prog.innerHTML = '已完成 <b>' + done + '</b> / ' + c.weeks.length + ' 周任务';
-  box.appendChild(prog);
-
-  // 书目 / 资源
   box.appendChild(csBuildBooks(c));
-
-  // 每周任务清单（打卡）
   box.appendChild(csBuildWeeks(c));
-
-  // 验收标准
   box.appendChild(csBuildCheck(c));
-
-  // 配套小项目
   box.appendChild(csBuildProject(c));
 
   return box;
@@ -284,12 +546,14 @@ function csBuildBooks(c) {
   return wrap;
 }
 
+function csTaskId(courseId, w) { return courseId + "-" + w; }
+
 function csBuildWeeks(c) {
   const wrap = document.createElement("div");
   wrap.className = "cs-section";
   const head = document.createElement("div");
   head.className = "cs-section-title";
-  head.textContent = "📅 每周任务清单（点击打勾，自动记录完成日期）";
+  head.textContent = "📅 每周任务清单（点击打勾，记录完成日期）";
   wrap.appendChild(head);
   c.weeks.forEach(function (wk) {
     const tid = csTaskId(c.id, wk.w);
@@ -300,13 +564,7 @@ function csBuildWeeks(c) {
     const cb = document.createElement("input");
     cb.type = "checkbox";
     cb.checked = !!doneDate;
-    cb.addEventListener("click", function (e) {
-      e.stopPropagation();
-      if (csState.done[tid]) delete csState.done[tid];
-      else csState.done[tid] = csToday();
-      csSave();
-      renderCs();  // 刷新 Tab 与进度
-    });
+    cb.addEventListener("click", function (e) { e.stopPropagation(); });
 
     const body = document.createElement("div");
     body.className = "cs-w-body";
@@ -318,7 +576,6 @@ function csBuildWeeks(c) {
     desc.textContent = wk.desc;
     body.append(nm, desc);
 
-    // 标签：必学/选学 + 考研重点/面试加分
     const tag = document.createElement("span");
     tag.className = "cs-tag " + (wk.tag === "req" ? "cs-tag-req" : "cs-tag-opt");
     tag.textContent = wk.tag === "req" ? "必学" : "选学";
@@ -333,7 +590,7 @@ function csBuildWeeks(c) {
     row.append(cb, body, tag, keyTag, date);
     row.addEventListener("click", function () {
       if (csState.done[tid]) delete csState.done[tid];
-      else csState.done[tid] = csToday();
+      else csState.done[tid] = csKey(csToday());
       csSave();
       renderCs();
     });
@@ -367,6 +624,36 @@ function csBuildProject(c) {
   box.className = "cs-project";
   box.textContent = c.project;
   wrap.appendChild(box);
+  return wrap;
+}
+
+// 总阶段划分
+function csBuildStages() {
+  const wrap = document.createElement("div");
+  wrap.className = "cs-section";
+  const head = document.createElement("h3");
+  head.className = "sub-title";
+  head.textContent = "🗺️ 总阶段划分（4 门课 · 与算法训练同步推进）";
+  wrap.appendChild(head);
+  const tableWrap = document.createElement("div");
+  tableWrap.className = "table-wrap";
+  const table = document.createElement("table");
+  table.className = "roadmap-table";
+  table.innerHTML = "<thead><tr><th>阶段</th><th>课程</th><th>定位</th><th>周期</th><th>节奏建议</th></tr></thead>";
+  const tbody = document.createElement("tbody");
+  CS_STAGES.forEach(function (s) {
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      "<td>阶段 " + s.no + "</td>" +
+      "<td><b>" + s.icon + " " + s.name + "</b></td>" +
+      "<td>" + s.pos + "</td>" +
+      "<td>" + s.weeks + " 周</td>" +
+      "<td>" + s.suggest + "</td>";
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  tableWrap.appendChild(table);
+  wrap.appendChild(tableWrap);
   return wrap;
 }
 
