@@ -89,6 +89,7 @@
 .icpc-tag-b { color: #0071e3; background: var(--accent-soft); }
 .icpc-tag-c { color: #248a3d; background: var(--green-soft); }
 .icpc-tag-d { color: #5856d6; background: #efecff; }
+.icpc-tag-tg { color: #0d9488; background: #ccfbf1; }
 
 .icpc-name { font-size: 13.5px; flex: 1; line-height: 1.45; word-break: break-all; }
 .icpc-task.done .icpc-name { color: var(--muted); text-decoration: line-through; }

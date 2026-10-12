@@ -14,6 +14,80 @@ const ICPC_ZHENTI = [
 ];
 
 // ============================================================
+// 树图专项题库（每天第 4 题 · 全年贯彻 · 从易到难螺旋上升）
+// 从「树的遍历 / 图遍历」最基础开始 → 并查集 → 拓扑 → 直径重心
+// → LCA → 树上 DP → 树上概率 DP/期望 → 最短路 → MST → Tarjan
+// → 二分图 → 树链剖分 → 网络流。刷完循环复习（螺旋，防止遗忘）
+// ============================================================
+const TREE_GRAPH_POOL = [
+  // —— 第 1 段：树的遍历（最弱先打基础，把遍历彻底吃透）——
+  "洛谷 P1305 新二叉树（入门）",
+  "洛谷 P1030 求先序排列（入门）",
+  "洛谷 P1827 美国血统（普及）",
+  "洛谷 P4913 二叉树深度（入门）",
+  "洛谷 P3884 二叉树问题（普及）",
+  // —— 第 2 段：图遍历 / 连通块 ——
+  "洛谷 P5318 查找文献（普及）",
+  "洛谷 P1141 01迷宫（普及）",
+  "洛谷 P1162 填涂颜色（普及）",
+  "洛谷 P1451 求细胞数量（普及）",
+  "洛谷 P1332 血色先锋队（普及）",
+  // —— 第 3 段：并查集 ——
+  "洛谷 P3367 并查集（入门）",
+  "洛谷 P1551 亲戚（普及）",
+  "洛谷 P1536 村村通（普及）",
+  "洛谷 P3958 奶酪（提高）",
+  // —— 第 4 段：拓扑排序 ——
+  "洛谷 P1113 杂务（普及）",
+  "洛谷 P4017 最大食物链计数（普及）",
+  "洛谷 P2712 摄像头（普及）",
+  // —— 第 5 段：树上 DP 入门 / 直径 / 重心 ——
+  "洛谷 P1352 没有上司的舞会（普及）",
+  "洛谷 P1122 最大子树和（普及）",
+  "洛谷 P1099 树网的核（提高）",
+  "洛谷 P5536 树的重心（提高）",
+  // —— 第 6 段：LCA ——
+  "洛谷 P3379 最近公共祖先（普及）",
+  "洛谷 P3398 仓鼠找sugar（普及）",
+  "洛谷 P1967 货车运输（提高）",
+  // —— 第 7 段：树上 DP / 树形背包 ——
+  "洛谷 P2015 二叉苹果树（普及）",
+  "洛谷 P2014 选课（普及）",
+  "洛谷 P1273 有线电视网（提高）",
+  "洛谷 P2279 消防局的设立（提高）",
+  "洛谷 P2607 骑士（提高）",
+  // —— 第 8 段：树上概率 DP / 期望 DP ——
+  "洛谷 P4316 绿豆蛙的归宿（普及）",
+  "洛谷 P1297 单选错位（普及）",
+  "洛谷 P1365 WJMZBMR打osu（提高）",
+  "洛谷 P1850 换教室（提高）",
+  "CF 148D Bag of mice（概率DP）",
+  "CF 518D Ilya and Escalator（概率DP）",
+  // —— 第 9 段：图最短路 ——
+  "洛谷 P4779 Dijkstra堆优化（普及）",
+  "洛谷 P1119 灾后重建（Floyd·提高）",
+  "洛谷 P1522 牛的旅行（Floyd·提高）",
+  "洛谷 P1462 通往奥格瑞玛的道路（提高）",
+  "洛谷 P3385 负环（提高）",
+  // —— 第 10 段：最小生成树 ——
+  "洛谷 P3366 最小生成树（普及）",
+  "洛谷 P1991 无线通讯网（普及）",
+  "洛谷 P1546 最短网络（普及）",
+  // —— 第 11 段：强连通 / Tarjan ——
+  "洛谷 P2863 强连通分量（普及）",
+  "洛谷 P3388 割点（普及）",
+  "洛谷 P3387 缩点（普及）",
+  // —— 第 12 段：二分图 ——
+  "洛谷 P3386 二分图最大匹配（普及）",
+  "洛谷 P1330 封锁阳光大学（提高）",
+  "洛谷 P1129 矩阵游戏（提高）",
+  // —— 第 13 段：树链剖分 / 网络流（高级收尾）——
+  "洛谷 P3384 树链剖分（提高）",
+  "洛谷 P2146 软件包管理器（提高）",
+  "洛谷 P3376 网络最大流（提高）",
+];
+
+// ============================================================
 // 螺旋式刷题训练清单（3 阶段 · 优先练熟旧算法，再学新算法）
 // 每个专题分 3 档：p1 入门巩固 / p2 中档 / p3 综合
 // check = 验收标准，pitfalls = 易错点/训练提醒；后期月份穿插复习旧专题
@@ -259,6 +333,12 @@ function icpcDayTasks(dateKey) {
     }
     list.push({ id: id, kind: "auto", type: type, name: name });
   });
+  // 第 4 题：树图专项（全年每天一道，从易到难螺旋上升，刷完循环复习）
+  const tgId = dateKey + "|A3";
+  if (!icpcState.deleted[tgId]) {
+    const tgPool = TREE_GRAPH_POOL;
+    list.push({ id: tgId, kind: "auto", type: "树图", name: tgPool[dayIndex % tgPool.length] });
+  }
   (icpcState.custom[dateKey] || []).forEach(function (c) {
     list.push({ id: c.id, kind: "custom", type: "自定义", name: c.name });
   });
@@ -344,6 +424,7 @@ function icpcWeekMinutes() {
 
 // ---------- 标签配色 ----------
 function icpcTagClass(type) {
+  if (/树图/.test(type)) return "icpc-tag-tg";
   if (/坑|模板|入门|薄弱/.test(type)) return "icpc-tag-a";
   if (/变形|中档/.test(type)) return "icpc-tag-b";
   if (/真题|区域|套题|专题/.test(type)) return "icpc-tag-c";
@@ -362,7 +443,7 @@ function renderIcpc() {
 
   const sum = document.createElement("summary");
   sum.className = "roadmap-summary";
-  sum.textContent = "🏆 ICPC 区域银牌备战（每日 ≥3 题 · 点击展开/收起）";
+  sum.textContent = "🏆 ICPC 区域银牌备战（每日 4 题 · 含树图专项 · 点击展开/收起）";
   card.appendChild(sum);
 
   card.appendChild(icpcBuildSetup());
@@ -389,7 +470,7 @@ function icpcBuildSetup() {
 
   const label = document.createElement("p");
   label.className = "subtitle";
-  label.textContent = "选择计划开始日期，自动从该日期生成一整年每日任务（每天 3 题）。";
+  label.textContent = "选择计划开始日期，自动从该日期生成一整年每日任务（每天 4 题：3 题专题 + 1 题树图专项）。";
   box.appendChild(label);
 
   const row = document.createElement("div");
@@ -428,7 +509,7 @@ function icpcBuildSetup() {
   rules.innerHTML =
     "<b>📋 训练规则</b>" +
     "<ul>" +
-    "<li>每日固定任务：最少 3 题，可手动增加题目。</li>" +
+    "<li>每日固定任务：4 题（入门 / 中档 / 综合 / 树图专项），可手动增加题目。</li>" +
     "<li>做题建议：独立思考，卡题 90 分钟再看题解；做完勾选，错题标记加入错题本。</li>" +
     "<li>每周自动生成复盘任务：重做本周错题。</li>" +
     "<li>每月末自动生成月度复盘任务，回顾本月全部错题。</li>" +
@@ -459,7 +540,7 @@ function icpcBuildProgress() {
 
   const lbl = document.createElement("div");
   lbl.className = "overview-label";
-  lbl.textContent = "本月进度（已过天数 × 3 题计）";
+  lbl.textContent = "本月进度（已过天数 × 4 题计）";
   wrap.appendChild(lbl);
 
   const bar = document.createElement("div");
